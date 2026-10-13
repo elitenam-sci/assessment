@@ -1,0 +1,727 @@
+<title>서·논술 대비 복습</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500;700&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/* 레이아웃: 홈(영역 카드 3개) → 영역별 4단계 탭(개념·활동·퀴즈·서술) → 결과 확인. 태블릿 터치 우선, 단일 칼럼 880px */
+:root{
+  --bg:#F2F6F7; --surface:#FFFFFF; --ink:#16282C; --muted:#56696E; --line:#D3E1E4;
+  --accent:#0E8A9B; --accent-ink:#FFFFFF; --accent-soft:#E0F2F4;
+  --leaf:#2D8A55; --leaf-soft:#E3F3E9; --amber:#AE6A0C; --amber-soft:#FAEFD9; --sky:#2E6BB0; --sky-soft:#E3EDF8;
+  --ok:#1E8549; --ok-soft:#E2F3E8; --bad:#C0392F; --bad-soft:#FBE6E4;
+  --f-display:"IBM Plex Sans KR","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  --f-body:"Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E181A; --surface:#162326; --ink:#E3EDEF; --muted:#9BB0B4; --line:#2A3C40;
+  --accent:#3BBFCF; --accent-ink:#05272C; --accent-soft:#163338;
+  --leaf:#5DC28B; --leaf-soft:#163024; --amber:#E7A748; --amber-soft:#33271A; --sky:#71A7E6; --sky-soft:#192A3D;
+  --ok:#5DC28B; --ok-soft:#163024; --bad:#EF7F77; --bad-soft:#3A1E1C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E181A; --surface:#162326; --ink:#E3EDEF; --muted:#9BB0B4; --line:#2A3C40;
+  --accent:#3BBFCF; --accent-ink:#05272C; --accent-soft:#163338;
+  --leaf:#5DC28B; --leaf-soft:#163024; --amber:#E7A748; --amber-soft:#33271A; --sky:#71A7E6; --sky-soft:#192A3D;
+  --ok:#5DC28B; --ok-soft:#163024; --bad:#EF7F77; --bad-soft:#3A1E1C; color-scheme:dark}
+
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--ink)}
+body{font-family:var(--f-body);font-size:17px;line-height:1.6;padding-inline:16px;padding-block:0 48px}
+.wrap{max-width:880px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-display);line-height:1.3;text-wrap:balance;margin:0}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.muted{color:var(--muted)}
+.stack{display:flex;flex-direction:column;gap:16px}
+
+/* 상단 바 */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;align-items:center;gap:12px;padding-block:14px;border-bottom:1px solid var(--line);margin-bottom:20px}
+.brand{font-family:var(--f-display);font-weight:700;font-size:18px;display:flex;align-items:center;gap:10px}
+.brand .mark{width:30px;height:30px;border-radius:9px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:15px}
+.top .spacer{flex:1}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-size:14px;font-weight:700;font-variant-numeric:tabular-nums}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 18px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:700;font-size:16px}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.area{background:var(--a);border-color:var(--a);color:var(--surface)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.ghost{border-color:transparent;background:transparent;padding:0 10px}
+
+/* 홈 */
+.hero{display:flex;flex-direction:column;gap:8px;margin-bottom:22px}
+.hero h1{font-size:28px}
+.areas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.acard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:12px;text-align:left}
+.acard .tag{align-self:flex-start;font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--a);background:var(--a-soft);padding:3px 10px;border-radius:999px}
+.acard h2{font-size:21px}
+.acard .desc{font-size:15px;color:var(--muted);flex:1}
+.pips{display:flex;gap:6px}
+.pip{flex:1;display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);text-align:center}
+.pip i{display:block;height:6px;border-radius:3px;background:var(--line)}
+.pip.on i{background:var(--a)}
+.pip.on{color:var(--ink)}
+.section-title{font-size:19px;margin:30px 0 12px}
+
+/* 표 */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+th{background:var(--accent-soft);color:var(--ink);font-weight:700;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td.c,th.c{text-align:center}
+.num{font-variant-numeric:tabular-nums}
+
+/* 영역 화면 */
+.area-head{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.area-head .tag{color:var(--a);font-weight:700;font-size:14px}
+.area-head h1{font-size:26px}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:6px;margin-bottom:20px}
+.tab{border:none;background:transparent;border-radius:10px;min-height:48px;font-weight:700;font-size:15px;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:6px}
+.tab[aria-selected="true"]{background:var(--a);color:var(--surface)}
+.tab .ck{font-size:13px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.card h3{font-size:19px}
+.card.soft{background:var(--a-soft);border-color:transparent}
+.key{border-left:6px solid var(--a);background:var(--surface);border-radius:0 12px 12px 0;padding:14px 16px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.formula{font-family:var(--f-display);font-weight:700;font-size:18px;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.formula .box{background:var(--a-soft);padding:6px 12px;border-radius:10px}
+.next-row{display:flex;justify-content:flex-end;margin-top:20px;gap:10px;flex-wrap:wrap}
+
+/* 그래프 */
+.graph{display:flex;flex-direction:column;gap:6px}
+.graph svg{width:100%;height:auto;max-width:100%}
+.graph .gt{font-weight:700;font-size:15px}
+.graph .gd{font-size:14px;color:var(--muted)}
+
+/* 퀴즈 */
+.q{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:12px}
+.q .qt{font-weight:700;display:flex;gap:10px}
+.q .qn{flex:none;width:28px;height:28px;border-radius:50%;background:var(--a);color:var(--surface);display:grid;place-items:center;font-size:14px}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:12px 14px;min-height:48px;font-size:16px}
+.opt:hover:not(:disabled){border-color:var(--a)}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt:disabled{cursor:default}
+.fb{border-radius:10px;padding:10px 14px;font-size:15px}
+.fb.ok{background:var(--ok-soft);color:var(--ink)}
+.fb.no{background:var(--bad-soft);color:var(--ink)}
+.fb b{margin-right:6px}
+.score{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.score .big{font-family:var(--f-display);font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
+
+/* 설탕 표 선택 */
+.task-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.task-tab{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 16px;font-weight:700;font-size:15px;min-height:40px}
+.task-tab[aria-pressed="true"]{border-color:var(--a);background:var(--a-soft);color:var(--a)}
+tr.pick{cursor:pointer}
+tr.pick:hover td{background:var(--a-soft)}
+tr.pick.sel td{background:var(--a-soft);font-weight:700}
+tr.pick td:first-child{white-space:nowrap}
+.box-ck{display:inline-grid;place-items:center;width:22px;height:22px;border:2px solid var(--line);border-radius:6px;margin-right:8px;vertical-align:-5px;font-size:13px;color:var(--surface)}
+tr.sel .box-ck{background:var(--a);border-color:var(--a)}
+
+/* 체 시뮬레이션 */
+.sieve{position:relative;background:var(--a-soft);border-radius:var(--r);padding:16px 16px 120px;overflow:hidden}
+.grains{display:flex;align-items:flex-end;justify-content:space-around;gap:8px;min-height:120px;flex-wrap:wrap}
+.grain{display:flex;flex-direction:column;align-items:center;gap:6px;transition:transform .9s ease,opacity .9s ease}
+.grain .dot{border-radius:50%;background:var(--a);display:flex;flex-wrap:wrap;align-content:center;justify-content:center;gap:2px}
+.grain .dot.split{background:transparent}
+.grain .dot.split span{display:block;border-radius:50%;background:var(--a)}
+.grain .lb{font-size:14px;font-weight:700;white-space:nowrap}
+.grain .st{font-size:13px;color:var(--muted);min-height:20px}
+.grain.pass{transform:translateY(118px)}
+.mesh{height:14px;margin:10px 0 0;border-radius:4px;background:repeating-linear-gradient(90deg,var(--muted) 0 3px,transparent 3px 14px);opacity:.7}
+.mesh-label{position:absolute;left:16px;bottom:12px;font-size:13px;color:var(--muted)}
+.ctrl{display:flex;gap:10px;flex-wrap:wrap}
+
+/* 매칭 */
+.match{display:grid;gap:10px}
+.mrow{display:grid;grid-template-columns:90px 1fr 1fr;gap:10px;align-items:center}
+.mrow .nm{font-weight:700}
+select{font:inherit;font-size:16px;min-height:46px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);padding:0 10px;width:100%;min-width:0}
+select.right{border-color:var(--ok);background:var(--ok-soft)}
+select.wrong{border-color:var(--bad);background:var(--bad-soft)}
+@media (max-width:520px){.mrow{grid-template-columns:1fr}}
+
+/* 호흡 시뮬레이션 */
+.breath{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:680px){.breath{grid-template-columns:1fr}}
+.breath svg{width:100%;height:auto;max-width:100%;background:var(--a-soft);border-radius:var(--r)}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.meter{display:flex;flex-direction:column;gap:4px}
+.meter .row{display:flex;justify-content:space-between;font-size:15px}
+.meter .bar{position:relative;height:14px;border-radius:7px;background:var(--line);overflow:visible}
+.meter .fill{position:absolute;left:0;top:0;bottom:0;border-radius:7px;background:var(--a);transition:width .2s linear}
+.meter .ref{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink);opacity:.55}
+.legend{font-size:13px;color:var(--muted)}
+
+/* 서술 */
+textarea{width:100%;min-height:150px;font:inherit;font-size:17px;line-height:1.7;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);resize:vertical}
+.kw{display:flex;flex-wrap:wrap;gap:8px}
+.kw span{font-size:14px;padding:5px 12px;border-radius:999px;border:1.5px solid var(--line)}
+.kw span.hit{border-color:var(--ok);background:var(--ok-soft)}
+.kw span.miss{border-style:dashed;color:var(--muted)}
+.model{background:var(--a-soft);border-radius:12px;padding:14px 16px}
+.chk{display:flex;flex-direction:column;gap:8px}
+.chk label{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);cursor:pointer}
+.chk input{width:22px;height:22px;flex:none;margin-top:2px;accent-color:var(--accent)}
+.prompt{font-weight:700}
+.data-note{font-size:14px;color:var(--muted)}
+
+/* 결과 */
+.field{display:flex;flex-direction:column;gap:6px;max-width:360px}
+.field input{font:inherit;min-height:46px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);padding:0 12px}
+.done{color:var(--ok);font-weight:700}
+.todo{color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-size:15px;font-weight:700;z-index:20}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><span class="mark" aria-hidden="true">서</span>서·논술 대비 복습</div>
+    <div class="spacer"></div>
+    <span class="chip" id="totalChip">0 / 12 단계</span>
+  </header>
+  <main id="app" aria-live="polite"></main>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(function(){
+'use strict';
+
+/* ───────── 저장 ───────── */
+var KEY='seo-nonsul-review-v1';
+function blank(){return {name:'',p:{pho:{concept:false,act:false,quiz:null,write:false},dig:{concept:false,act:false,quiz:null,write:false},res:{concept:false,act:false,quiz:null,write:false}},drafts:{}};}
+var S=blank();
+try{var raw=localStorage.getItem(KEY); if(raw){var o=JSON.parse(raw); if(o&&o.p){S=Object.assign(blank(),o);}}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+
+/* ───────── 영역 데이터 ───────── */
+var AREAS={
+ pho:{no:'①',title:'광합성과 변인 통제',color:'leaf',desc:'환경 요인과 광합성량의 관계, 비교할 수 있는 자료 고르기',points:'4점 · 1문항'},
+ dig:{no:'②',title:'소화의 필요성',color:'amber',desc:'최종 분해 산물과 흡수, 크기를 수치로 비교하기',points:'5점 · 1문항'},
+ res:{no:'③',title:'호흡 운동',color:'sky',desc:'갈비뼈·가로막의 움직임과 흉강 부피·압력·공기 이동',points:'5점 · 2문항'}
+};
+var ORDER=['pho','dig','res'];
+var STEPS=[['concept','개념'],['act','활동'],['quiz','퀴즈'],['write','서술']];
+
+var QUIZ={
+ pho:[
+  {q:'빛의 세기가 일정 범위 이상으로 강해지면 광합성량은 어떻게 될까?',o:['계속 증가한다','거의 일정해진다','급격히 감소한다','0이 된다'],a:1,e:'빛의 세기는 일정 범위까지는 광합성량을 증가시키지만, 그 이상에서는 광합성량이 거의 일정해진다.'},
+  {q:'온도가 적정 온도보다 더 높아지면 광합성량은?',o:['계속 증가한다','변화가 없다','급격히 감소한다','일정해진다'],a:2,e:'온도는 적정 온도까지 광합성량을 증가시키지만, 그보다 높아지면 광합성량이 급격히 감소한다.'},
+  {q:'온도가 광합성량에 미치는 영향을 알아보는 실험에서 빛의 세기는 어떤 변인일까?',o:['독립 변인','종속 변인','통제 변인'],a:2,e:'알아보려는 요인(온도)만 바꾸고, 결과에 영향을 줄 수 있는 빛의 세기는 같게 유지해야 하므로 통제 변인이다.'},
+  {q:'결과에 미치는 영향을 알아보려고 일부러 다르게 하는 요인을 무엇이라고 할까?',o:['독립 변인','종속 변인','통제 변인'],a:0,e:'독립 변인은 실험자가 의도적으로 바꾸는 요인, 종속 변인은 그에 따라 측정하는 결과이다.'},
+  {q:'어떤 요인의 영향을 확인하는 데 가장 알맞은 자료는?',o:['결과값이 가장 큰 자료','예상과 결과가 일치하는 자료','알아보려는 요인만 다르고 나머지 조건은 같은 자료','조건이 가장 많이 다른 자료'],a:2,e:'다른 조건까지 함께 달라지면 결과가 어떤 요인 때문인지 알 수 없다. 알아보려는 요인 하나만 달라야 한다.'}
+ ],
+ dig:[
+  {q:'소화가 필요한 가장 중요한 까닭은?',o:['음식의 맛을 좋게 하려고','영양소를 세포막을 통과할 만큼 작게 분해하려고','음식을 오래 저장하려고','물을 흡수하려고'],a:1,e:'크고 복잡한 영양소는 세포막을 통과하지 못하므로, 흡수될 수 있을 만큼 작은 물질로 분해되어야 한다.'},
+  {q:'단백질의 최종 분해 산물은?',o:['포도당','아미노산','지방산','엿당'],a:1,e:'단백질은 펩신, 트립신, 단백질 소화 효소에 의해 최종적으로 아미노산으로 분해된다.'},
+  {q:'지방산과 모노글리세리드가 흡수되는 곳은?',o:['융털의 모세혈관','융털의 암죽관','위의 벽','큰창자'],a:1,e:'포도당·아미노산은 융털의 모세혈관으로, 지방산·모노글리세리드는 융털의 암죽관으로 흡수된다.'},
+  {q:'체와 곡물 비유에서 "체의 구멍"에 해당하는 것은?',o:['소화 효소','작은창자 융털 표면 세포막의 통로','위','쓸개즙'],a:1,e:'구멍보다 작은 알갱이만 체를 통과하듯, 세포막 통로보다 작은 물질만 흡수된다.'},
+  {q:'통로의 크기가 10일 때, 크기가 40인 물질 A와 8인 물질 B 중 통과할 수 있는 것은? (가상의 값)',o:['A만','B만','둘 다','둘 다 아니다'],a:1,e:'B(8)는 통로(10)보다 작아서 통과하고, A(40)는 통로(10)보다 커서 통과하지 못한다. 이처럼 수치를 직접 비교해 설명한다.'}
+ ],
+ res:[
+  {q:'허파가 스스로 커지거나 작아지지 못하는 까닭은?',o:['허파에 근육이 없어서','허파가 너무 작아서','허파에 혈관이 없어서','허파가 뼈로 되어 있어서'],a:0,e:'허파는 근육이 없어 스스로 움직이지 못하고, 갈비뼈와 가로막의 움직임에 따라 흉강과 함께 부피가 변한다.'},
+  {q:'들숨일 때 가로막은 어떻게 움직일까?',o:['위로 올라간다','아래로 내려간다','움직이지 않는다'],a:1,e:'들숨: 갈비뼈는 위로 올라가고 가로막은 아래로 내려가 흉강의 부피가 커진다.'},
+  {q:'들숨일 때 허파 내부 압력은 바깥 공기의 압력과 비교해 어떻게 될까?',o:['높아진다','낮아진다','같다'],a:1,e:'흉강과 허파의 부피가 커지면 허파 내부 압력이 바깥보다 낮아져 공기가 허파로 들어온다.'},
+  {q:'공기가 이동하는 방향으로 옳은 것은?',o:['압력이 낮은 곳 → 높은 곳','압력이 높은 곳 → 낮은 곳','부피가 작은 곳 → 큰 곳으로만','온도가 낮은 곳 → 높은 곳'],a:1,e:'공기는 압력이 높은 곳에서 낮은 곳으로 이동한다.'},
+  {q:'호흡 운동 모형에서 고무막은 우리 몸의 어느 부분에 해당할까?',o:['허파','숨관','가로막','갈비뼈'],a:2,e:'모형의 풍선은 허파, Y자관은 숨관·숨관가지, 병 속 공간은 흉강, 고무막은 가로막에 해당한다.'}
+ ]
+};
+
+var WRITE={
+ pho:{
+  prompt:'설탕 녹이기 실험에서 "젓기"가 설탕이 녹는 시간에 주는 영향을 알아보려고 실험 C와 J를 골랐다. 두 실험을 고른 까닭과 실험 결과를 서술하시오.',
+  note:'활동 탭의 실험 결과 표를 다시 보고 써도 좋아요.',
+  kw:[['같은 조건: 물의 온도',['온도','60']],['같은 조건: 설탕의 양',['양','15']],['같은 조건: 설탕의 상태',['상태','알갱이']],['다른 조건: 젓기',['젓기','저어','저은','젓지','저으']],['결과: 녹는 시간',['짧','빨리','49','109']]],
+  model:'실험 C와 J는 물의 온도(60 ℃), 설탕의 양(15 g), 설탕의 상태(알갱이)가 같고 젓기만 다르므로 젓기의 영향을 비교할 수 있다. 저은 C는 49초, 젓지 않은 J는 109초가 걸렸으므로, 설탕을 저으면 다 녹는 데 걸리는 시간이 짧아진다.',
+  chk:['같게 유지한 조건을 구체적으로(온도, 양, 상태) 썼다.','다르게 한 조건이 "젓기" 하나뿐임을 밝혔다.','결과를 수치나 관계("짧아진다")로 썼다.']
+ },
+ dig:{
+  prompt:'체 구멍의 크기는 20, 콩의 크기는 70, 좁쌀의 크기는 15이다(가상의 값). ① 콩이 체를 통과하지 못하는 까닭을 수치를 비교하여 쓰고, ② 콩을 통과시키는 방법과 ③ 이것이 우리 몸의 소화와 어떻게 연결되는지 서술하시오.',
+  note:'숫자를 문장 안에 직접 넣어 비교해 보세요.',
+  kw:[['콩의 크기 70',['70']],['구멍의 크기 20',['20']],['작게 부수기',['작게','부수','쪼개','잘게']],['세포막 통로',['세포막','통로']],['소화 효소의 분해',['효소','분해']],['흡수',['흡수']]],
+  model:'① 콩(70)은 체 구멍(20)보다 크기 때문에 통과하지 못한다. ② 콩을 구멍 크기인 20보다 작게 부수면 통과할 수 있다. ③ 영양소도 세포막 통로보다 크면 흡수되지 못하므로, 소화 효소에 의해 통로보다 작은 물질로 분해되어야 흡수될 수 있다.',
+  chk:['"크다/작다"를 수치(70, 20)로 직접 비교했다.','통과시키려면 구멍보다 작게 만들어야 함을 썼다.','세포막 통로·소화 효소·흡수와 연결하여 설명했다.']
+ },
+ res:{
+  prompt:'[상황 A] 꽉 조인 코르셋을 입으면 가슴을 둘러싼 뼈대가 위·바깥쪽으로 움직이기 어려워진다. 이때 숨을 들이마시면 들어오는 공기의 양이 어떻게 달라질지 예측하고, 흉강 부피 → 허파 내부 압력 → 공기 유입량 순서로 서술하시오.',
+  note:'활동 탭에서 상황 A를 켜고 평소와 비교해 본 뒤 써 보세요.',
+  kw:[['갈비뼈',['갈비뼈']],['흉강 부피',['흉강','부피']],['허파 내부 압력',['압력']],['평소와 비교',['덜','평소','작아','줄어']],['공기 유입량',['공기']]],
+  model:'들숨 때 갈비뼈가 충분히 위로 올라가지 못한다. 그 결과 흉강의 부피가 평소보다 덜 커지고, 허파의 부피도 덜 커져 허파 내부 압력이 평소보다 덜 낮아진다. 따라서 바깥과 허파 사이의 압력 차이가 작아져 들어오는 공기의 양이 줄어든다.',
+  chk:['제한되는 부위(갈비뼈)와 방향(위로 올라가는 운동)을 썼다.','흉강 부피 → 허파 내부 압력 → 공기 유입량 순서로 이었다.','"평소보다 덜 ~"처럼 평소와 비교해 썼다.']
+ }
+};
+
+/* ───────── 상태 ───────── */
+var view={page:'home',area:null,step:'concept'};
+var sugarTask=0, sugarSel={};
+var sieve=null, breathState=null;
+
+/* ───────── 도우미 ───────── */
+var app=document.getElementById('app');
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function stepDone(a,s){var v=S.p[a][s]; return s==='quiz'?v!==null:!!v;}
+function countDone(a){return STEPS.filter(function(s){return stepDone(a,s[0]);}).length;}
+function totalDone(){return ORDER.reduce(function(n,a){return n+countDone(a);},0);}
+function areaVars(a){var c=AREAS[a].color; return '--a:var(--'+c+');--a-soft:var(--'+c+'-soft)';}
+function toast(msg){var t=document.getElementById('toast'); t.textContent=msg; t.hidden=false; clearTimeout(toast._t); toast._t=setTimeout(function(){t.hidden=true;},1800);}
+function mark(a,s,val){S.p[a][s]=val===undefined?true:val; save(); updateChip();}
+function updateChip(){document.getElementById('totalChip').textContent=totalDone()+' / 12 단계';}
+function go(page,area,step){if(breathState&&breathState.raf)cancelAnimationFrame(breathState.raf); view={page:page,area:area||null,step:step||'concept'}; render(); window.scrollTo(0,0);}
+
+/* ───────── 홈 ───────── */
+function homeHTML(){
+  var h='<section class="hero"><h1>평가 전, 혼자서 다시 보기</h1><p class="muted">세 영역마다 개념 → 활동 → 퀴즈 → 서술 순서로 복습해요. 진행 상황은 이 기기에 저장돼요.</p></section>';
+  h+='<div class="areas">';
+  ORDER.forEach(function(a){
+    var A=AREAS[a];
+    h+='<article class="acard" style="'+areaVars(a)+'"><span class="tag">'+A.no+' '+A.points+'</span><h2>'+A.title+'</h2><p class="desc">'+A.desc+'</p><div class="pips" aria-label="진행 단계">';
+    STEPS.forEach(function(s){h+='<span class="pip'+(stepDone(a,s[0])?' on':'')+'"><i></i>'+s[1]+'</span>';});
+    h+='</div><button class="btn area" data-go="'+a+'">'+(countDone(a)===0?'시작하기':countDone(a)===4?'다시 보기':'이어서 하기')+'</button></article>';
+  });
+  h+='</div>';
+  h+='<h2 class="section-title">평가 안내</h2><div class="tbl-wrap"><table><thead><tr><th>영역</th><th>평가 요소</th><th class="c">배점</th></tr></thead><tbody>'+
+  '<tr><td><b>광합성과 변인 통제</b></td><td>환경 요인과 광합성량의 관계를 확인하기에 알맞은 자료를 고르고, 조건을 근거로 선택 이유와 결과 설명하기</td><td class="c num">4점</td></tr>'+
+  '<tr><td><b>소화의 필요성</b></td><td>영양소 입자와 세포막 통로의 크기를 수치로 비교하여 흡수되는 형태와 소화가 필요한 까닭 설명하기</td><td class="c num">5점</td></tr>'+
+  '<tr><td><b>호흡 운동</b></td><td>신체 제약 상황에서 제한되는 부위와 방향을 예측하고, 흉강 부피 → 허파 내부 압력 → 공기 유입량을 인과적으로 설명하기</td><td class="c num">5점</td></tr>'+
+  '</tbody></table></div>';
+  h+='<div class="next-row"><button class="btn primary" data-page="result">학습 결과 확인하기</button></div>';
+  return h;
+}
+
+/* ───────── 영역 화면 ───────── */
+function areaHTML(){
+  var a=view.area, A=AREAS[a];
+  var h='<div style="'+areaVars(a)+'">';
+  h+='<button class="btn ghost" data-page="home">← 처음으로</button>';
+  h+='<div class="area-head"><span class="tag">영역 '+A.no+' · '+A.points+'</span><h1>'+A.title+'</h1></div>';
+  h+='<div class="tabs" role="tablist">';
+  STEPS.forEach(function(s,i){
+    h+='<button class="tab" role="tab" aria-selected="'+(view.step===s[0])+'" data-step="'+s[0]+'">'+(i+1)+'. '+s[1]+(stepDone(a,s[0])?' <span class="ck" aria-label="완료">✓</span>':'')+'</button>';
+  });
+  h+='</div><div id="stepBody">'+stepHTML(a,view.step)+'</div></div>';
+  return h;
+}
+function nextRow(a,step){
+  var idx=STEPS.findIndex(function(s){return s[0]===step;});
+  var h='<div class="next-row">';
+  if(idx<3) h+='<button class="btn area" data-step="'+STEPS[idx+1][0]+'">다음: '+STEPS[idx+1][1]+' →</button>';
+  else{
+    var ai=ORDER.indexOf(a);
+    if(ai<2) h+='<button class="btn area" data-go="'+ORDER[ai+1]+'">다음 영역: '+AREAS[ORDER[ai+1]].title+' →</button>';
+    else h+='<button class="btn primary" data-page="result">학습 결과 확인하기 →</button>';
+  }
+  return h+'</div>';
+}
+function stepHTML(a,step){
+  if(step==='concept') return conceptHTML(a)+nextRow(a,step);
+  if(step==='act') return actHTML(a)+nextRow(a,step);
+  if(step==='quiz') return quizHTML(a)+nextRow(a,step);
+  return writeHTML(a)+nextRow(a,step);
+}
+
+/* ───────── 개념 ───────── */
+function graphSVG(kind){
+  var path={
+    light:'M30,130 C70,50 110,38 150,36 L250,36',
+    co2:'M30,130 C70,58 110,46 150,44 L250,44',
+    temp:'M30,128 C80,110 130,60 175,34 C190,30 200,40 215,80 L240,128'
+  }[kind];
+  var xl={light:'빛의 세기',co2:'이산화 탄소 농도',temp:'온도'}[kind];
+  return '<svg viewBox="0 0 270 160" role="img" aria-label="'+xl+'에 따른 광합성량 그래프">'+
+   '<line x1="30" y1="135" x2="258" y2="135" stroke="var(--muted)" stroke-width="1.5"/>'+
+   '<line x1="30" y1="135" x2="30" y2="14" stroke="var(--muted)" stroke-width="1.5"/>'+
+   '<path d="'+path+'" fill="none" stroke="var(--a)" stroke-width="4" stroke-linecap="round"/>'+
+   '<text x="256" y="153" text-anchor="end" font-size="12" fill="var(--muted)">'+xl+' →</text>'+
+   '<text x="36" y="22" font-size="12" fill="var(--muted)">광합성량</text>'+
+   (kind==='temp'?'<line x1="180" y1="32" x2="180" y2="135" stroke="var(--muted)" stroke-dasharray="4 4"/><text x="180" y="150" text-anchor="middle" font-size="11" fill="var(--muted)">적정 온도</text>':'')+
+  '</svg>';
+}
+function conceptHTML(a){
+  var h='<div class="stack">';
+  if(a==='pho'){
+    h+='<div class="card"><h3>광합성</h3><div class="formula"><span class="box">이산화 탄소</span>+<span class="box">물</span><span>→ 빛에너지 · 엽록체 →</span><span class="box">포도당</span>+<span class="box">산소</span></div></div>';
+    h+='<div class="card"><h3>환경 요인과 광합성량</h3><div class="grid3">'+
+      '<div class="graph">'+graphSVG('light')+'<span class="gt">빛의 세기</span><span class="gd">일정 범위까지 증가, 그 이상은 거의 일정</span></div>'+
+      '<div class="graph">'+graphSVG('co2')+'<span class="gt">이산화 탄소 농도</span><span class="gd">일정 범위까지 증가, 그 이상은 거의 일정</span></div>'+
+      '<div class="graph">'+graphSVG('temp')+'<span class="gt">온도</span><span class="gd">적정 온도까지 증가, 그 이상은 급격히 감소</span></div>'+
+      '</div><p class="key">관계는 문장으로: "빛의 세기가 증가할수록 일정 범위에서 광합성량이 증가한다."</p></div>';
+    h+='<div class="card"><h3>실험에서 변인의 역할</h3><div class="tbl-wrap"><table><thead><tr><th>변인</th><th>뜻</th><th>스스로 묻기</th></tr></thead><tbody>'+
+      '<tr><td><b>독립 변인</b></td><td>영향을 알아보려고 일부러 바꾸는 요인</td><td>무엇을 바꾸지?</td></tr>'+
+      '<tr><td><b>종속 변인</b></td><td>독립 변인에 따라 변하는지 측정하는 결과</td><td>무엇을 재지?</td></tr>'+
+      '<tr><td><b>통제 변인</b></td><td>결과에 영향을 줄 수 있어 같게 유지하는 요인</td><td>무엇은 같아야 하지?</td></tr>'+
+      '</tbody></table></div><p class="key">좋은 근거 자료 = 알아보려는 요인 <b>하나만</b> 다르고, 나머지 조건은 <b>모두 같은</b> 자료</p></div>';
+  } else if(a==='dig'){
+    h+='<div class="card soft"><h3>소화란?</h3><p>크고 복잡한 영양소를 소화 효소로 분해하여, <b>세포막을 통과해 흡수될 수 있을 만큼 작게</b> 만드는 과정</p></div>';
+    h+='<div class="card"><h3>3대 영양소의 소화와 흡수</h3><div class="tbl-wrap"><table><thead><tr><th>영양소</th><th>주요 소화 효소</th><th>최종 분해 산물</th><th>흡수되는 곳</th></tr></thead><tbody>'+
+      '<tr><td><b>녹말</b></td><td>아밀레이스(침, 이자액), 탄수화물 소화 효소(작은창자)</td><td>포도당</td><td>융털의 모세혈관</td></tr>'+
+      '<tr><td><b>단백질</b></td><td>펩신(위액), 트립신(이자액), 단백질 소화 효소(작은창자)</td><td>아미노산</td><td>융털의 모세혈관</td></tr>'+
+      '<tr><td><b>지방</b></td><td>라이페이스(이자액)</td><td>지방산, 모노글리세리드</td><td>융털의 암죽관</td></tr>'+
+      '</tbody></table></div><p class="data-note">쓸개즙은 소화 효소가 없지만 지방을 작은 알갱이로 만들어 지방의 소화를 돕는다.</p></div>';
+    h+='<div class="card"><h3>작아야 통과한다 — 비유로 다시 보기</h3><div class="tbl-wrap"><table><thead><tr><th>비유 (체 · 티백)</th><th>우리 몸</th></tr></thead><tbody>'+
+      '<tr><td>체의 구멍</td><td>작은창자 융털 표면 세포막의 통로</td></tr>'+
+      '<tr><td>통과 못 하는 큰 알갱이</td><td>소화되지 않은 녹말 · 단백질 · 지방</td></tr>'+
+      '<tr><td>통과하는 작은 알갱이</td><td>소화로 분해된 최종 분해 산물</td></tr>'+
+      '</tbody></table></div><p class="key">답안에는 "크다/작다"가 아니라 <b>수치를 직접 비교</b>해서 쓴다. 예) 콩(70)은 구멍(20)보다 크므로 통과하지 못한다.</p></div>';
+  } else {
+    h+='<div class="card"><h3>공기의 이동 경로</h3><div class="formula"><span class="box">코</span>→<span class="box">숨관</span>→<span class="box">숨관가지</span>→<span class="box">허파(폐포)</span></div></div>';
+    h+='<div class="card"><h3>호흡 운동의 원리</h3><p class="key">허파는 근육이 없어 스스로 움직이지 못한다 → <b>갈비뼈와 가로막</b>이 움직여 흉강의 부피를 바꾼다.</p><div class="tbl-wrap"><table><thead><tr><th>구분</th><th>갈비뼈</th><th>가로막</th><th>흉강 부피</th><th>허파 내부 압력</th><th>공기 이동</th></tr></thead><tbody>'+
+      '<tr><td><b>들숨</b></td><td>올라감</td><td>내려감</td><td>커짐</td><td>낮아짐</td><td>밖 → 허파</td></tr>'+
+      '<tr><td><b>날숨</b></td><td>내려감</td><td>올라감</td><td>작아짐</td><td>높아짐</td><td>허파 → 밖</td></tr>'+
+      '</tbody></table></div><p class="data-note">공기는 압력이 높은 곳에서 낮은 곳으로 이동한다.</p></div>';
+    h+='<div class="card"><h3>호흡 운동 모형</h3><div class="tbl-wrap"><table><thead><tr><th>모형</th><th>우리 몸</th></tr></thead><tbody>'+
+      '<tr><td>병 속 공간</td><td>흉강</td></tr><tr><td>Y자관</td><td>숨관, 숨관가지</td></tr><tr><td>풍선</td><td>허파</td></tr><tr><td>고무막</td><td>가로막</td></tr>'+
+      '</tbody></table></div><p class="key">고무막을 아래로 당기면 → 병 속 부피가 커지고 압력이 낮아져 → 풍선이 부푼다(들숨).</p></div>';
+  }
+  h+='<button class="btn area" data-concept-done style="align-self:flex-start">'+(S.p[a].concept?'✓ 개념 확인 완료':'개념을 모두 읽었어요')+'</button>';
+  return h+'</div>';
+}
+
+/* ───────── 활동 ───────── */
+var SUGAR=[['A',40,10,'가루','계속 저음',35],['B',20,10,'알갱이','젓지 않음',192],['C',60,15,'알갱이','계속 저음',49],['D',40,10,'알갱이','젓지 않음',120],['E',20,5,'가루','젓지 않음',75],['F',60,10,'알갱이','젓지 않음',78],['G',40,15,'가루','계속 저음',49],['H',20,5,'알갱이','젓지 않음',115],['I',40,5,'가루','계속 저음',21],['J',60,15,'알갱이','젓지 않음',109]];
+var VARS=['물의 온도','설탕의 양','설탕의 상태','젓기'];
+var TASKS=[
+ {label:'과제 1 · 물의 온도',q:'물의 온도가 설탕이 녹는 시간에 주는 영향을 알아보려면 어떤 실험들을 비교해야 할까요? 해당하는 실험을 모두 고르세요.',target:0,ans:['B','D','F'],
+  ok:'정답! B, D, F는 설탕의 양(10 g)·상태(알갱이)·젓기(젓지 않음)가 같고 물의 온도만 달라요. 온도가 높을수록 다 녹는 시간이 짧아졌어요(192초 → 120초 → 78초).'},
+ {label:'과제 2 · 젓기',q:'젓기가 설탕이 녹는 시간에 주는 영향을 알아보려면 어떤 두 실험을 비교해야 할까요?',target:3,ans:['C','J'],
+  ok:'정답! C, J는 물의 온도(60 ℃)·양(15 g)·상태(알갱이)가 같고 젓기만 달라요. 저은 C(49초)가 젓지 않은 J(109초)보다 빨리 녹았어요.'}
+];
+function actHTML(a){
+  if(a==='pho') return sugarHTML();
+  if(a==='dig') return digActHTML();
+  return breathHTML();
+}
+function sugarHTML(){
+  var T=TASKS[sugarTask];
+  var h='<div class="stack"><div class="card"><h3>비교할 수 있는 자료 고르기</h3><p class="muted">결과값의 크기보다 실험 조건을 먼저 살펴보세요. 표의 줄을 눌러 실험을 고릅니다.</p><div class="task-tabs">';
+  TASKS.forEach(function(t,i){h+='<button class="task-tab" aria-pressed="'+(i===sugarTask)+'" data-task="'+i+'">'+t.label+'</button>';});
+  h+='</div><p class="prompt">'+T.q+'</p><div class="tbl-wrap"><table><thead><tr><th>실험</th><th class="c">물의 온도(℃)</th><th class="c">설탕의 양(g)</th><th class="c">설탕의 상태</th><th class="c">젓기</th><th class="c">다 녹는 시간(초)</th></tr></thead><tbody>';
+  SUGAR.forEach(function(r){
+    var sel=!!sugarSel[r[0]];
+    h+='<tr class="pick'+(sel?' sel':'')+'" data-row="'+r[0]+'" tabindex="0" role="checkbox" aria-checked="'+sel+'"><td><span class="box-ck">'+(sel?'✓':'')+'</span>'+r[0]+'</td><td class="c num">'+r[1]+'</td><td class="c num">'+r[2]+'</td><td class="c">'+r[3]+'</td><td class="c">'+r[4]+'</td><td class="c num">'+r[5]+'</td></tr>';
+  });
+  h+='</tbody></table></div><div class="ctrl"><button class="btn area" data-sugar-check>확인하기</button><button class="btn" data-sugar-reset>선택 지우기</button></div><div id="sugarFb"></div></div></div>';
+  return h;
+}
+function checkSugar(){
+  var T=TASKS[sugarTask], pick=Object.keys(sugarSel).filter(function(k){return sugarSel[k];}).sort();
+  var rows=SUGAR.filter(function(r){return pick.indexOf(r[0])>=0;});
+  var fb=document.getElementById('sugarFb');
+  if(rows.length<2){fb.innerHTML='<p class="fb no"><b>다시!</b>비교하려면 실험을 두 개 이상 골라야 해요.</p>';return;}
+  var diff=[];
+  VARS.forEach(function(v,i){ if(i===T.target) return; var vals=rows.map(function(r){return r[i+1];}); if(vals.some(function(x){return x!==vals[0];})) diff.push(v);});
+  var tv=rows.map(function(r){return r[T.target+1];});
+  var distinct=tv.filter(function(x,i){return tv.indexOf(x)===i;}).length===tv.length;
+  if(diff.length){fb.innerHTML='<p class="fb no"><b>다시!</b>고른 실험들은 '+VARS[T.target]+' 말고도 <b>'+diff.join(', ')+'</b>이(가) 서로 달라요. 이러면 결과가 어떤 요인 때문인지 알 수 없어요.</p>';return;}
+  if(!distinct){fb.innerHTML='<p class="fb no"><b>다시!</b>고른 실험들은 '+VARS[T.target]+'이(가) 서로 다르지 않아요. 알아보려는 요인은 달라야 해요.</p>';return;}
+  if(pick.join()!==T.ans.join()){fb.innerHTML='<p class="fb no"><b>거의 다 왔어요!</b>조건은 맞아요. 같은 조건으로 비교할 수 있는 실험이 더 있어요.</p>';return;}
+  fb.innerHTML='<p class="fb ok"><b>✓</b>'+T.ok+'</p>';
+  S.sugarDone=S.sugarDone||{}; S.sugarDone[sugarTask]=true;
+  if(S.sugarDone[0]&&S.sugarDone[1]){ if(!S.p.pho.act){mark('pho','act'); toast('활동 완료!'); refreshTabs();} }
+  else { save(); fb.innerHTML+='<div class="next-row"><button class="btn area" data-task="'+(1-sugarTask)+'">다른 과제도 풀기 →</button></div>'; }
+}
+
+/* 소화 활동: 체 + 매칭 */
+function newSieve(){return {grains:[{id:'bean',nm:'콩',size:70,pieces:1},{id:'rice',nm:'쌀',size:45,pieces:1},{id:'millet',nm:'좁쌀',size:15,pieces:1},{id:'sand',nm:'고운 모래',size:2,pieces:1}],sifted:false};}
+var MATCH=[['녹말','포도당','모세혈관'],['단백질','아미노산','모세혈관'],['지방','지방산, 모노글리세리드','암죽관']];
+var PRODUCTS=['포도당','아미노산','지방산, 모노글리세리드','엿당'];
+var SITES=['모세혈관','암죽관'];
+function grainHTML(g){
+  var px=Math.max(10,g.size*0.95);
+  var dot;
+  if(g.pieces>1){
+    var each=Math.max(8,g.size*0.95);
+    dot='<div class="dot split" style="width:'+Math.min(120,each*Math.ceil(Math.sqrt(g.pieces))+6)+'px">';
+    for(var i=0;i<g.pieces;i++) dot+='<span style="width:'+each+'px;height:'+each+'px"></span>';
+    dot+='</div>';
+  } else dot='<div class="dot" style="width:'+px+'px;height:'+px+'px"></div>';
+  var st=sieve.sifted?(g.size<20?'통과':'체 위에 남음'):'';
+  return '<div class="grain'+(sieve.sifted&&g.size<20?' pass':'')+'">'+dot+'<span class="lb">'+g.nm+' <span class="num">'+(Math.round(g.size*10)/10)+'</span></span><span class="st">'+st+'</span></div>';
+}
+function digActHTML(){
+  if(!sieve) sieve=newSieve();
+  var bean=sieve.grains[0];
+  var h='<div class="stack"><div class="card"><h3>체로 걸러 보기</h3><p class="muted">체 구멍의 크기는 <b>20</b>이에요(가상의 값). 숫자는 알갱이의 상대적 크기입니다.</p>';
+  h+='<div class="sieve"><div class="grains" id="grains">'+sieve.grains.map(grainHTML).join('')+'</div><div class="mesh" aria-hidden="true"></div><p class="mesh-label">▲ 체 (구멍 크기 20) · 아래는 통과한 것</p></div>';
+  h+='<div class="ctrl"><button class="btn area" data-sift>체에 거르기</button><button class="btn" data-crush'+(bean.size<20?' disabled':'')+'>콩 반으로 부수기</button><button class="btn" data-sieve-reset>처음으로</button></div><div id="sieveFb">'+sieveFb()+'</div></div>';
+  h+='<div class="card"><h3>영양소 짝 맞추기</h3><p class="muted">각 영양소의 최종 분해 산물과 흡수되는 곳(융털의 어디)을 고르세요.</p><div class="match">';
+  MATCH.forEach(function(m,i){
+    h+='<div class="mrow"><span class="nm">'+m[0]+'</span><select id="mp'+i+'" aria-label="'+m[0]+' 최종 분해 산물"><option value="">최종 분해 산물</option>'+PRODUCTS.map(function(p){return '<option>'+p+'</option>';}).join('')+'</select><select id="ms'+i+'" aria-label="'+m[0]+' 흡수되는 곳"><option value="">흡수되는 곳</option>'+SITES.map(function(p){return '<option>'+p+'</option>';}).join('')+'</select></div>';
+  });
+  h+='</div><div class="ctrl"><button class="btn area" data-match-check>확인하기</button></div><div id="matchFb"></div></div></div>';
+  return h;
+}
+function sieveFb(){
+  var bean=sieve.grains[0];
+  if(!sieve.sifted) return '<p class="data-note">어떤 알갱이가 통과할지 먼저 예상한 뒤 "체에 거르기"를 눌러 보세요.</p>';
+  if(bean.size>=20) return '<p class="fb no"><b>콩('+bean.size+')</b>은 구멍(20)보다 커서 남았어요. 콩을 통과시키려면 어떻게 해야 할까요? "콩 반으로 부수기"를 눌러 보세요.</p>';
+  return '<p class="fb ok"><b>✓</b>콩 조각('+(Math.round(bean.size*10)/10)+')이 구멍(20)보다 작아져 통과했어요! <br>콩 = 큰 영양소, 부수기 = 소화 효소의 분해, 체 구멍 = 세포막 통로. 그래서 소화가 필요해요.</p>';
+}
+function renderSieve(){document.getElementById('grains').innerHTML=sieve.grains.map(grainHTML).join(''); document.getElementById('sieveFb').innerHTML=sieveFb(); var c=document.querySelector('[data-crush]'); if(c) c.disabled=sieve.grains[0].size<20;}
+function digCheckDone(){ if(S.digSieve&&S.digMatch&&!S.p.dig.act){mark('dig','act'); toast('활동 완료!'); refreshTabs();} else save(); }
+
+/* 호흡 활동 */
+var CONS={none:{nm:'제약 없음',rib:1,dia:1},A:{nm:'상황 A · 코르셋',rib:.3,dia:1},B:{nm:'상황 B · 임신 후기',rib:1,dia:.3}};
+function breathHTML(){
+  breathState={rib:0,dia:0,cons:'none',raf:0,phase:'rest',seen:{}};
+  var h='<div class="stack"><div class="card"><h3>호흡 운동 시뮬레이션</h3><p class="muted">"들숨"과 "날숨"을 눌러 갈비뼈·가로막의 움직임에 따라 흉강 부피와 공기 유입량이 어떻게 변하는지 보세요. 그다음 상황 A, B를 켜고 평소와 비교해요.</p>';
+  h+='<div class="seg" role="group" aria-label="상황 선택">';
+  Object.keys(CONS).forEach(function(k){h+='<button class="task-tab" aria-pressed="'+(k==='none')+'" data-cons="'+k+'">'+CONS[k].nm+'</button>';});
+  h+='</div><p class="data-note" id="consNote">'+consNote('none')+'</p>';
+  h+='<div class="breath"><svg id="chest" viewBox="0 0 300 270" role="img" aria-label="흉강과 허파, 갈비뼈, 가로막 그림"></svg><div class="stack">';
+  h+='<div class="ctrl"><button class="btn area" data-breath="in">들숨</button><button class="btn" data-breath="out">날숨</button></div>';
+  h+=meter('vol','흉강 부피 증가량')+meter('dp','허파와 바깥의 압력 차이')+meter('air','들어온 공기의 양');
+  h+='<p class="legend">세로선 = 평소(제약 없음) 들숨의 최댓값</p><div id="breathFb" class="data-note"></div></div></div></div></div>';
+  return h;
+}
+function meter(id,label){return '<div class="meter"><div class="row"><span>'+label+'</span><b class="num" id="'+id+'V">0%</b></div><div class="bar"><span class="fill" id="'+id+'F" style="width:0%"></span><span class="ref" style="left:80%"></span></div></div>';}
+function consNote(k){return k==='A'?'갈비뼈가 위로 올라가는 운동이 제한돼요.':k==='B'?'배 속 공간이 줄어 가로막이 아래로 내려가는 운동이 제한돼요.':'갈비뼈와 가로막이 모두 자유롭게 움직여요.';}
+function drawChest(){
+  var s=breathState, r=s.rib, d=s.dia, el=document.getElementById('chest'); if(!el) return;
+  var L=70-14*r, R=230+14*r, top=72-10*r, base=212, dome=158+36*d;
+  var g='';
+  if(s.cons==='B') g+='<path d="M'+(L-6)+','+(base+6)+' Q150,'+(base-10)+' '+(R+6)+','+(base+6)+' L'+(R+6)+',262 L'+(L-6)+',262 Z" fill="var(--a)" opacity=".18"/><text x="150" y="252" text-anchor="middle" font-size="12" fill="var(--ink)">배 속 공간 줄어듦</text>';
+  // 갈비뼈
+  for(var i=0;i<5;i++){
+    var y=top+18+i*24, lift=10*r;
+    g+='<path d="M'+(L+4)+','+(y+8-lift)+' Q150,'+(y-14-lift)+' '+(R-4)+','+(y+8-lift)+'" fill="none" stroke="var(--muted)" stroke-width="5" stroke-linecap="round" opacity=".55"/>';
+  }
+  g+='<path d="M'+L+','+base+' L'+L+','+(top+20)+' Q150,'+(top-24)+' '+R+','+(top+20)+' L'+R+','+base+'" fill="none" stroke="var(--ink)" stroke-width="2" opacity=".5"/>';
+  if(s.cons==='A') g+='<rect x="'+(L-8)+'" y="'+(top+40)+'" width="'+(R-L+16)+'" height="70" rx="8" fill="none" stroke="var(--bad)" stroke-width="3" stroke-dasharray="7 5"/><text x="'+(R+4)+'" y="'+(top+36)+'" text-anchor="end" font-size="12" fill="var(--bad)">코르셋</text>';
+  // 허파
+  var lt=top+28, lb=dome-6, ry=(lb-lt)/2, cy=(lt+lb)/2, rx=34+9*r;
+  g+='<ellipse cx="'+(112-8*r)+'" cy="'+cy+'" rx="'+rx+'" ry="'+ry+'" fill="var(--a)" opacity=".75"/>';
+  g+='<ellipse cx="'+(188+8*r)+'" cy="'+cy+'" rx="'+rx+'" ry="'+ry+'" fill="var(--a)" opacity=".75"/>';
+  // 숨관
+  g+='<path d="M150,8 L150,'+(lt+8)+' M150,'+(lt+8)+' L'+(122-8*r)+','+(lt+26)+' M150,'+(lt+8)+' L'+(178+8*r)+','+(lt+26)+'" stroke="var(--ink)" stroke-width="5" fill="none" stroke-linecap="round" opacity=".7"/>';
+  // 가로막
+  g+='<path d="M'+L+','+base+' Q150,'+(2*dome-base)+' '+R+','+base+'" fill="none" stroke="var(--amber)" stroke-width="6" stroke-linecap="round"/>';
+  g+='<text x="'+(R-4)+'" y="'+(base+20)+'" text-anchor="end" font-size="13" font-weight="700" fill="var(--amber)">가로막</text>';
+  g+='<text x="'+(L+2)+'" y="'+(top+6)+'" font-size="13" font-weight="700" fill="var(--muted)">갈비뼈</text>';
+  g+='<text x="150" y="'+(cy+5)+'" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink)">허파</text>';
+  // 공기 화살표
+  var flow=s.flow||0;
+  if(flow>0.02) g+='<g opacity="'+Math.min(1,flow*2.2)+'"><path d="M178,10 L178,44 M171,36 L178,46 L185,36" stroke="var(--sky)" stroke-width="4" fill="none" stroke-linecap="round"/><text x="190" y="30" font-size="13" font-weight="700" fill="var(--sky)">공기 들어옴</text></g>';
+  if(flow<-0.02) g+='<g opacity="'+Math.min(1,-flow*2.2)+'"><path d="M178,46 L178,12 M171,20 L178,10 L185,20" stroke="var(--muted)" stroke-width="4" fill="none" stroke-linecap="round"/><text x="190" y="30" font-size="13" font-weight="700" fill="var(--muted)">공기 나감</text></g>';
+  el.innerHTML=g;
+}
+function setMeters(){
+  var s=breathState, inc=(s.rib+s.dia)/2; // 0..1 (평소 최댓값 = 1)
+  var air=s.air||0, dp=Math.max(0,inc-air);
+  function put(id,v){var p=Math.round(v*80); document.getElementById(id+'F').style.width=Math.min(100,p)+'%'; document.getElementById(id+'V').textContent=Math.round(v*100)+'%';}
+  put('vol',inc); put('dp',dp*2.5>1?1:dp*2.5); put('air',air);
+  document.getElementById('dpV').textContent=dp>0.01?(dp>0.2?'큼':'작음'):'없음';
+}
+function animateBreath(dir){
+  var s=breathState; if(s.raf) cancelAnimationFrame(s.raf);
+  var C=CONS[s.cons], tr=dir==='in'?C.rib:0, td=dir==='in'?C.dia:0;
+  var r0=s.rib,d0=s.dia,a0=s.air||0, t0=null, dur=1600;
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function step(t){
+    if(t0===null) t0=t; var k=reduce?1:Math.min(1,(t-t0)/dur); var e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+    s.rib=r0+(tr-r0)*e; s.dia=d0+(td-d0)*e;
+    var inc=(s.rib+s.dia)/2;
+    // 공기는 부피 변화를 약간 늦게 따라감 → 압력 차이가 생겼다가 사라짐
+    var target=inc, lag=reduce?1:Math.min(1,(t-t0)/(dur+500));
+    s.air=a0+(target-a0)*(lag<.5?2*lag*lag:1-Math.pow(-2*lag+2,2)/2);
+    s.flow=(dir==='in'?1:-1)*Math.max(0,Math.abs(inc-s.air))*3+(k<1?(dir==='in'?0.3:-0.3)*(1-k):0);
+    drawChest(); setMeters();
+    if(k<1||lag<1) s.raf=requestAnimationFrame(step); else {s.flow=0; drawChest(); s.raf=0; afterBreath(dir);}
+  }
+  s.raf=requestAnimationFrame(step);
+}
+function afterBreath(dir){
+  var s=breathState, fb=document.getElementById('breathFb'); if(!fb) return;
+  if(dir==='out'){fb.innerHTML='날숨: 갈비뼈가 내려가고 가로막이 올라가 흉강 부피가 작아지면, 허파 내부 압력이 높아져 공기가 밖으로 나가요.';return;}
+  var air=Math.round(((CONS[s.cons].rib+CONS[s.cons].dia)/2)*100);
+  s.seen[s.cons]=true;
+  if(s.cons==='none') fb.innerHTML='평소 들숨: 흉강 부피가 커짐 → 허파 내부 압력이 바깥보다 낮아짐 → 공기가 들어와요.';
+  else fb.innerHTML='<b>'+CONS[s.cons].nm+'</b>: '+(s.cons==='A'?'갈비뼈가 충분히 올라가지 못해':'가로막이 충분히 내려가지 못해')+' 흉강 부피가 평소보다 덜 커지고, 허파 내부 압력이 덜 낮아져 들어온 공기가 평소의 약 '+air+'%로 줄었어요. (모형으로 나타낸 값)';
+  if(s.seen.none&&s.seen.A&&s.seen.B&&!S.p.res.act){mark('res','act'); toast('활동 완료!'); refreshTabs();}
+}
+
+/* ───────── 퀴즈 ───────── */
+var quizAns={};
+function quizHTML(a){
+  if(!quizAns[a]) quizAns[a]={};
+  var qs=QUIZ[a], h='<div class="stack">';
+  qs.forEach(function(q,i){
+    var pick=quizAns[a][i];
+    h+='<div class="q"><p class="qt"><span class="qn">'+(i+1)+'</span><span>'+q.q+'</span></p><div class="opts">';
+    q.o.forEach(function(o,j){
+      var cls='';
+      if(pick!==undefined){ if(j===q.a) cls=' right'; else if(j===pick) cls=' wrong'; }
+      h+='<button class="opt'+cls+'" data-q="'+i+'" data-o="'+j+'"'+(pick!==undefined?' disabled':'')+'>'+o+'</button>';
+    });
+    h+='</div>';
+    if(pick!==undefined) h+='<p class="fb '+(pick===q.a?'ok':'no')+'"><b>'+(pick===q.a?'정답!':'아쉬워요.')+'</b>'+q.e+'</p>';
+    h+='</div>';
+  });
+  var n=Object.keys(quizAns[a]).length, right=qs.filter(function(q,i){return quizAns[a][i]===q.a;}).length;
+  h+='<div class="card soft score"><div><span class="muted">'+(n<qs.length?'푼 문제 '+n+' / '+qs.length:'이번 점수')+'</span><div class="big">'+right+' / '+qs.length+'</div>'+(S.p[a].quiz!==null?'<span class="data-note">최고 기록 '+S.p[a].quiz+' / '+qs.length+'</span>':'')+'</div>'+(n===qs.length?'<button class="btn" data-quiz-retry>다시 풀기</button>':'')+'</div>';
+  return h+'</div>';
+}
+
+/* ───────── 서술 ───────── */
+function writeHTML(a){
+  var W=WRITE[a], d=S.drafts[a]||'';
+  var h='<div class="stack"><div class="card"><h3>서술 연습</h3><p class="prompt">'+W.prompt+'</p><p class="data-note">'+W.note+'</p>';
+  h+='<label for="ta-'+a+'" class="muted" style="font-size:14px">나의 답안</label><textarea id="ta-'+a+'" data-ta="'+a+'" placeholder="원인 → 결과 순서로, 근거를 넣어 써 보세요.">'+esc(d)+'</textarea>';
+  h+='<div class="ctrl"><button class="btn area" data-wcheck>답안 점검하기</button><span class="data-note" id="wcount" style="align-self:center">'+d.length+'자</span></div><div id="wfb"></div></div></div>';
+  return h;
+}
+function writeCheck(a){
+  var W=WRITE[a], txt=(S.drafts[a]||'').trim(), fb=document.getElementById('wfb');
+  if(txt.length<20){fb.innerHTML='<p class="fb no"><b>조금 더!</b>20자 이상 써야 점검할 수 있어요. 지금 '+txt.length+'자예요.</p>';return;}
+  var hits=W.kw.map(function(k){return k[1].some(function(w){return txt.indexOf(w)>=0;});});
+  var n=hits.filter(Boolean).length;
+  var h='<div class="stack"><div><p style="font-weight:700;margin-bottom:8px">핵심 요소 '+n+' / '+W.kw.length+'개가 들어 있어요</p><div class="kw">';
+  W.kw.forEach(function(k,i){h+='<span class="'+(hits[i]?'hit':'miss')+'">'+(hits[i]?'✓ ':'')+k[0]+'</span>';});
+  h+='</div><p class="data-note" style="margin-top:6px">낱말 포함 여부만 확인한 결과예요. 아래 예시 답안과 비교해 스스로 점검하세요.</p></div>';
+  h+='<div class="model"><p style="font-weight:700;margin-bottom:6px">예시 답안</p><p>'+W.model+'</p></div>';
+  h+='<div><p style="font-weight:700;margin-bottom:8px">스스로 점검</p><div class="chk">';
+  W.chk.forEach(function(c,i){h+='<label><input type="checkbox" id="ck-'+a+'-'+i+'" data-wck> <span>'+c+'</span></label>';});
+  h+='</div></div><div class="ctrl"><button class="btn area" data-wdone disabled>점검을 마쳤어요</button></div></div>';
+  fb.innerHTML=h;
+}
+
+/* ───────── 결과 ───────── */
+function resultHTML(){
+  var h='<button class="btn ghost" data-page="home">← 처음으로</button><div class="area-head"><span class="tag" style="color:var(--accent)">학습 결과</span><h1>나의 복습 기록</h1></div>';
+  h+='<div class="stack"><div class="field"><label for="stuName" style="font-weight:700">학번과 이름</label><input id="stuName" placeholder="예) 20315 홍길동" value="'+esc(S.name)+'"></div>';
+  h+='<div class="tbl-wrap"><table><thead><tr><th>영역</th><th class="c">개념</th><th class="c">활동</th><th class="c">퀴즈 최고</th><th class="c">서술 점검</th></tr></thead><tbody>';
+  ORDER.forEach(function(a){
+    var p=S.p[a]; function c(v){return v?'<span class="done">완료</span>':'<span class="todo">—</span>';}
+    h+='<tr><td><b>'+AREAS[a].title+'</b></td><td class="c">'+c(p.concept)+'</td><td class="c">'+c(p.act)+'</td><td class="c num">'+(p.quiz===null?'<span class="todo">—</span>':p.quiz+' / 5')+'</td><td class="c">'+c(p.write)+'</td></tr>';
+  });
+  h+='</tbody></table></div>';
+  var t=totalDone();
+  h+='<div class="card soft score"><div><span class="muted">전체 진행</span><div class="big">'+t+' / 12 단계</div></div><span>'+(t===12?'모든 복습을 마쳤어요. 선생님께 이 화면을 보여 주세요.':'남은 단계를 마저 해 보세요.')+'</span></div>';
+  h+='<div class="ctrl"><button class="btn primary" data-copy>결과 복사하기</button><button class="btn" data-reset>기록 초기화</button></div><div id="resetBox"></div></div>';
+  return h;
+}
+function resultText(){
+  var lines=['[서·논술 대비 복습] '+(S.name||'(이름 없음)')];
+  ORDER.forEach(function(a){var p=S.p[a]; lines.push(AREAS[a].title+': 개념 '+(p.concept?'O':'X')+' / 활동 '+(p.act?'O':'X')+' / 퀴즈 '+(p.quiz===null?'-':p.quiz+'/5')+' / 서술 '+(p.write?'O':'X'));});
+  lines.push('진행 '+totalDone()+'/12');
+  return lines.join('\n');
+}
+
+/* ───────── 렌더 ───────── */
+function render(){
+  if(view.page==='home') app.innerHTML=homeHTML();
+  else if(view.page==='area') app.innerHTML=areaHTML();
+  else app.innerHTML=resultHTML();
+  updateChip();
+  if(view.page==='area'&&view.step==='act'&&view.area==='res'){drawChest(); setMeters();}
+}
+function renderStep(){
+  if(breathState&&breathState.raf){cancelAnimationFrame(breathState.raf); breathState.raf=0;}
+  document.getElementById('stepBody').innerHTML=stepHTML(view.area,view.step);
+  refreshTabs();
+  if(view.step==='act'&&view.area==='res'){drawChest(); setMeters();}
+}
+function refreshTabs(){
+  var a=view.area; if(!a) return;
+  document.querySelectorAll('.tab').forEach(function(t){
+    var s=t.getAttribute('data-step'), i=STEPS.findIndex(function(x){return x[0]===s;});
+    t.setAttribute('aria-selected',String(view.step===s));
+    t.innerHTML=(i+1)+'. '+STEPS[i][1]+(stepDone(a,s)?' <span class="ck" aria-label="완료">✓</span>':'');
+  });
+  updateChip();
+}
+
+/* ───────── 이벤트 ───────── */
+document.addEventListener('click',function(ev){
+  var t=ev.target.closest('button, tr.pick'); if(!t) return;
+  var d=t.dataset;
+  if(d.go){sugarSel={}; sugarTask=0; sieve=null; go('area',d.go,'concept'); return;}
+  if(d.page){go(d.page); return;}
+  if(d.step){view.step=d.step; renderStep(); window.scrollTo(0,0); return;}
+  var a=view.area;
+  if(t.hasAttribute('data-concept-done')){mark(a,'concept'); t.textContent='✓ 개념 확인 완료'; refreshTabs(); return;}
+  // 설탕
+  if(d.task!==undefined){sugarTask=+d.task; sugarSel={}; renderStep(); return;}
+  if(t.matches('tr.pick')){toggleRow(t); return;}
+  if(t.hasAttribute('data-sugar-check')){checkSugar(); return;}
+  if(t.hasAttribute('data-sugar-reset')){sugarSel={}; renderStep(); return;}
+  // 체
+  if(t.hasAttribute('data-sift')){sieve.sifted=true; renderSieve(); if(sieve.grains[0].size<20){S.digSieve=true; digCheckDone();} return;}
+  if(t.hasAttribute('data-crush')){var b=sieve.grains[0]; if(b.size>=20){b.size=b.size/2; b.pieces*=2; sieve.sifted=false; renderSieve();} return;}
+  if(t.hasAttribute('data-sieve-reset')){sieve=newSieve(); renderSieve(); return;}
+  if(t.hasAttribute('data-match-check')){
+    var all=true;
+    MATCH.forEach(function(m,i){
+      var p=document.getElementById('mp'+i), s=document.getElementById('ms'+i);
+      var okp=p.value===m[1], oks=s.value===m[2];
+      p.className=p.value?(okp?'right':'wrong'):''; s.className=s.value?(oks?'right':'wrong'):'';
+      if(!okp||!oks) all=false;
+    });
+    var fb=document.getElementById('matchFb');
+    if(all){fb.innerHTML='<p class="fb ok"><b>✓</b>모두 맞았어요! 포도당·아미노산은 모세혈관으로, 지방산·모노글리세리드는 암죽관으로 흡수돼요.</p>'; S.digMatch=true; digCheckDone();}
+    else fb.innerHTML='<p class="fb no"><b>다시!</b>빨간 칸을 고쳐 보세요. 개념 탭의 표를 다시 봐도 좋아요.</p>';
+    return;
+  }
+  // 호흡
+  if(d.cons){breathState.cons=d.cons; breathState.rib=0; breathState.dia=0; breathState.air=0; breathState.flow=0; if(breathState.raf){cancelAnimationFrame(breathState.raf);breathState.raf=0;}
+    document.querySelectorAll('[data-cons]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.cons===d.cons));});
+    document.getElementById('consNote').textContent=consNote(d.cons); document.getElementById('breathFb').textContent=''; drawChest(); setMeters(); return;}
+  if(d.breath){animateBreath(d.breath); return;}
+  // 퀴즈
+  if(d.q!==undefined&&d.o!==undefined){
+    quizAns[a][+d.q]=+d.o;
+    var qs=QUIZ[a];
+    if(Object.keys(quizAns[a]).length===qs.length){
+      var right=qs.filter(function(q,i){return quizAns[a][i]===q.a;}).length;
+      var first=S.p[a].quiz===null;
+      if(first||right>S.p[a].quiz) mark(a,'quiz',right);
+      if(first) toast('퀴즈 완료! '+right+' / '+qs.length);
+    }
+    var y=window.scrollY; renderStep(); window.scrollTo(0,y); return;
+  }
+  if(t.hasAttribute('data-quiz-retry')){quizAns[a]={}; renderStep(); window.scrollTo(0,0); return;}
+  // 서술
+  if(t.hasAttribute('data-wcheck')){writeCheck(a); return;}
+  if(t.hasAttribute('data-wdone')){mark(a,'write'); t.textContent='✓ 서술 연습 완료'; t.disabled=true; refreshTabs(); toast('서술 연습 완료!'); return;}
+  // 결과
+  if(t.hasAttribute('data-copy')){
+    var txt=resultText();
+    var done=function(){toast('결과를 복사했어요');};
+    try{navigator.clipboard.writeText(txt).then(done,function(){showCopy(txt);});}catch(e){showCopy(txt);}
+    return;
+  }
+  if(t.hasAttribute('data-reset')){document.getElementById('resetBox').innerHTML='<div class="card soft"><p>모든 진행 기록과 답안이 지워져요. 정말 초기화할까요?</p><div class="ctrl"><button class="btn primary" data-reset-yes>초기화</button><button class="btn" data-reset-no>취소</button></div></div>'; return;}
+  if(t.hasAttribute('data-reset-yes')){S=blank(); quizAns={}; save(); go('result'); toast('기록을 초기화했어요'); return;}
+  if(t.hasAttribute('data-reset-no')){document.getElementById('resetBox').innerHTML=''; return;}
+});
+function showCopy(txt){
+  var box=document.getElementById('resetBox');
+  box.innerHTML='<div class="card soft"><p class="data-note">자동 복사가 막혀 있어요. 아래 글을 길게 눌러 복사하세요.</p><textarea id="copyArea" readonly style="min-height:120px">'+esc(txt)+'</textarea></div>';
+  var ta=document.getElementById('copyArea'); ta.focus(); ta.select();
+}
+function toggleRow(tr){var k=tr.dataset.row; sugarSel[k]=!sugarSel[k]; var y=window.scrollY; renderStep(); window.scrollTo(0,y); var n=document.querySelector('tr[data-row="'+k+'"]'); if(n) n.focus({preventScroll:true});}
+document.addEventListener('keydown',function(ev){
+  var tr=ev.target.closest&&ev.target.closest('tr.pick');
+  if(tr&&(ev.key===' '||ev.key==='Enter')){ev.preventDefault(); toggleRow(tr);}
+});
+document.addEventListener('input',function(ev){
+  var t=ev.target;
+  if(t.dataset&&t.dataset.ta){S.drafts[t.dataset.ta]=t.value; save(); var c=document.getElementById('wcount'); if(c) c.textContent=t.value.length+'자';}
+  if(t.id==='stuName'){S.name=t.value; save();}
+});
+document.addEventListener('change',function(ev){
+  if(ev.target.matches('[data-wck]')){
+    var all=Array.prototype.every.call(document.querySelectorAll('[data-wck]'),function(c){return c.checked;});
+    var b=document.querySelector('[data-wdone]'); if(b&&!S.p[view.area].write) b.disabled=!all;
+  }
+});
+
+render();
+})();
+</script>
